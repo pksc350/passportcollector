@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .stamp_class import stamps
 
 # Create your views here.
 from django.http import HttpResponse
@@ -9,3 +10,6 @@ def home(request):
 
 def about(request):
     return render(request, 'about.html')
+
+def stamps_index(request):
+    return render(request, 'stamps/index.html', {'stamps': stamps})
