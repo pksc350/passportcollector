@@ -15,3 +15,11 @@ def about(request):
 def stamps_index(request):
     stamps = Stamp.objects.all()
     return render(request, 'stamps/index.html', {'stamps': stamps})
+
+
+def stamp_details(request, stamp_id):
+    stamp = Stamp.objects.get(id=stamp_id)
+    context = {
+        'stamp': stamp
+    }
+    return render(request, 'stamps/detail.html', context)

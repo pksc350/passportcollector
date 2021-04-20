@@ -1,0 +1,16 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Stamp Country Details</h1>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ stamp.country }}</span>
+    <p>We arrived in the country on {{ stamp.date }}</p>
+    <p>
+      The passport stamps in {{ stamp.country }} are {{ stamp.color }} and in
+      the shape of a {{ stamp.shape }}.
+    </p>
+  </div>
+</div>
+
+{% endblock %}
