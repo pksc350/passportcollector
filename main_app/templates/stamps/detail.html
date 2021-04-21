@@ -45,6 +45,46 @@
   </div>
 </div>
 
+<hr />
+<div class="row">
+  <h3>The attractions I visited in {{ stamp.country }}</h3>
+  {%for attraction in stamp.attractions.all%}
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">
+        I visited {{ attraction.title }}, which is a {{ attraction.kind }}
+      </span>
+    </div>
+  </div>
+  {% empty %}
+  <h5>No sightseeing this time :(</h5>
+  {% endfor %}
+</div>
+
+<div class="col s6">
+  <h3>Available Attractions</h3>
+  {% if attractions.count %} {% for attraction in attractions.all %}
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">
+        {{attraction.title}}, {{attraction.kind}}
+      </span>
+    </div>
+    <div class="card-action">
+      <form
+        action="{% url 'assoc_attraction' stamp.id attraction.id %}"
+        method="post"
+      >
+        {% csrf_token %}
+        <button type="submit" class="btn">Add</button>
+      </form>
+    </div>
+  </div>
+  {% endfor %} {% else %}
+  <h5>I already visited all these attractions in {{stamp.country}}</h5>
+  {% endif %}
+</div>
+
 <script>
   var dateEl = document.getElementById("id_date");
   M.Datepicker.init(dateEl, {

@@ -10,11 +10,29 @@ WEATHER = (
     ('W', 'Windy')
 )
 
+class Attraction(models.Model):
+    title = models.CharField(max_length=100)
+    kind = models.CharField(max_length=50)
+    # Other goodness such as 'def __str__():' below
+
+    def __str__(self):
+        return f'{self.title} {self.kind}'
+    # Add this method
+
+    def get_absolute_url(self):
+        return reverse('attraction_detail', kwargs={'attraction_id': self.id})
+
+        class Meta:
+            ordering = ['-date']
+
+
+
 class Stamp (models.Model):
     country = models.CharField(max_length=100)
     date = models.DateField()
     color = models.CharField(max_length=50)
     shape = models.CharField(max_length=50)
+    attractions = models.ManyToManyField(Attraction)
 
     def __str__(self):
         return self.country
