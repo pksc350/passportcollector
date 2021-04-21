@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .stamp_class import stamps
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Stamp
+from .forms import WeatherForm
 
 # Create your views here.
 from django.http import HttpResponse
@@ -20,10 +21,21 @@ def stamps_index(request):
 
 def stamp_details(request, stamp_id):
     stamp = Stamp.objects.get(id=stamp_id)
+    weather_form = WeatherForm()
     context = {
-        'stamp': stamp
+        'stamp': stamp,
+        'weather_form': weather_form
     }
     return render(request, 'stamps/detail.html', context)
+
+def add_weather(request, stamp_id):
+    form = WeatherForm(request.POST)
+
+    if form.is_valid():
+        new_weather = form.save(commit=False)
+        new_weather.stamp_id = stamp_id
+        new_weather.save()
+    return redirect ('detail', stamp_id=stamp_id)
 
 
 class StampCreate(CreateView):
