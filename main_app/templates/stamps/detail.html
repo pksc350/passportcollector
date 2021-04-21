@@ -7,10 +7,15 @@
     <span class="card-title">{{ stamp.country }}</span>
     <p>We arrived in the country on {{ stamp.date }}</p>
     <p>
-      The passport stamps in {{ stamp.country }} are {{ stamp.color }} and in
-      the shape of a {{ stamp.shape }}.
+      The entry stamps in {{ stamp.country }} are {{ stamp.color }} and in the
+      shape of a {{ stamp.shape }}.
     </p>
   </div>
+</div>
+
+<div class="card-action">
+  <a href="{% url 'stamps_update' stamp.id %}">Edit</a>
+  <a href="{% url 'stamps_delete' stamp.id %}">Delete</a>
 </div>
 
 {% endblock %}
