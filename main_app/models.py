@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 
+from django.contrib.auth.models import User 
+
 # Create your models here.
 
 WEATHER = (
@@ -33,6 +35,7 @@ class Stamp (models.Model):
     color = models.CharField(max_length=50)
     shape = models.CharField(max_length=50)
     attractions = models.ManyToManyField(Attraction)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.country
@@ -52,3 +55,10 @@ class Weather (models.Model):
 
     class Meta:
         ordering = ['-date']
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    stamp = models.ForeignKey(Stamp, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Photo for stamp_id: {self.stamp_id} @{self.url}'
